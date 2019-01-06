@@ -26,21 +26,22 @@ namespace simple_benefits_api.Controllers
             {
                 return BadRequest("Invalid client request");
             }
+            //NOTE: This is for demo purposes only. Normally would read from database
 
             if (user.UserName == "admin" && user.Password == "123")
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-                var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:5000",
-                    audience: "http://localhost:5000",
+                var tokenOptions = new JwtSecurityToken(
+                    issuer: "http://localhost:5000",  //TODO: Add to config
+                    audience: "http://localhost:5000", //TODO: Add to config
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
                 );
 
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                 return Ok(new { Token = tokenString });
             }
             else

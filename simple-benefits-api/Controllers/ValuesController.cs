@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace simple_benefits_api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class ValuesController : ControllerBase
     {
