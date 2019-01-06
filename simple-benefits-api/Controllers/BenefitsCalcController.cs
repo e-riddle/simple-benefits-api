@@ -14,11 +14,11 @@ namespace simple_benefits_api.Controllers
     {
         // POST api/values
         [HttpPost]
-        public decimal Post([FromBody]BenefitsCalcParameters parameters)
+        public async Task<decimal> Post([FromBody]BenefitsCalcParameters parameters)
         {
             var calculator = new HealthBenefitsCalculator();
 
-            return calculator.CalculateHealthCareBenefit(parameters);
+            return await calculator.CalculateHealthCareBenefit(parameters);
 
         }
 
