@@ -20,7 +20,7 @@ namespace simple_benefits_api.Controllers
 
         [HttpPost, Route("login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody]LoginModel user)
+        public async Task<IActionResult> Login([FromBody]LoginModel user)
         {
             if (user == null)
             {
@@ -41,12 +41,15 @@ namespace simple_benefits_api.Controllers
                     signingCredentials: signinCredentials
                 );
 
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(new { Token = tokenString });
+                var tokenString = new JwtSecurityTokenHandler()
+                                .WriteToken(tokenOptions);
+
+
+                return await Task.FromResult<IActionResult>(Ok(new { Token = tokenString }));
             }
             else
             {
-                return Unauthorized();
+                return await Task.FromResult<IActionResult>(Unauthorized());
             }
         }
     }
