@@ -17,7 +17,11 @@ namespace simple_benefits_api.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-
+        /// <summary>
+        /// Login the specified user.
+        /// </summary>
+        /// <returns>The login.</returns>
+        /// <param name="user">User.</param>
         [HttpPost, Route("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody]LoginModel user)

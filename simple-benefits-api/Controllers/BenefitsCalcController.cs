@@ -12,7 +12,11 @@ namespace simple_benefits_api.Controllers
     [Route("api/[controller]")]
     public class BenefitsCalcController : Controller
     {
-        // POST api/values
+       /// <summary>
+       /// Calculates benefits based on employee and dependents
+       /// </summary>
+       /// <returns>The calculated value.</returns>
+       /// <param name="parameters">Benefits calc parameter object.</param>
         [HttpPost]
         public async Task<decimal> Post([FromBody]BenefitsCalcParameters parameters)
         {

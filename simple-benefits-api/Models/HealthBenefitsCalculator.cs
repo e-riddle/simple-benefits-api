@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 namespace simple_benefits_api.Models
 {
+
+    //TODO: This class should be stored in different project since is not API specific; Keeping it in API project for now for simplicity
     public class HealthBenefitsCalculator
     {
         protected readonly int payPeriods;
@@ -13,8 +15,8 @@ namespace simple_benefits_api.Models
         public HealthBenefitsCalculator()
         {
             //TODO: pull this from configuration; never hardcode
-
-            this.payPeriods = 26;
+            //TODO: Determine payperiods based on pay cycle (weekly, biweekly, semimonthly, and monthly)
+            this.payPeriods = 26; 
             this.employeeBaseCost = (decimal)1000;
             this.dependentBaseCost = (decimal)500;
             this.discountRate = (decimal)0.1;
@@ -27,9 +29,12 @@ namespace simple_benefits_api.Models
 
             total += await this.CalcDependentCost(parameters.FirstName, this.employeeBaseCost);
 
-            foreach (var dependent in parameters.Dependents)
+            if (parameters.Dependents != null)
             {
-                total += await this.CalcDependentCost(dependent.FirstName, this.dependentBaseCost);
+                foreach (var dependent in parameters.Dependents)
+                {
+                    total += await this.CalcDependentCost(dependent.FirstName, this.dependentBaseCost);
+                }
             }
 
             return total;
